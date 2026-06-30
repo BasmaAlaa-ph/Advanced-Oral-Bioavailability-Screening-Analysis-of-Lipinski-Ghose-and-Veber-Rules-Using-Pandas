@@ -8,10 +8,22 @@ A high-performance cheminformatics tool designed to automate oral bioavailabilit
 * **Veber's Rules:** Assessing molecular flexibility and Polar Surface Area (TPSA).
 * **LogP Sweet Spot:** Targeting the ideal hydrophilic-lipophilic balance (0.5–3.5).
 
-## 📊 Technical Highlights & Engineering Decisions
-* **High-Performance Vectorization:** Eliminated slow, non-scalable Python loops. By leveraging Boolean evaluation and `.astype(int)`, cumulative molecular violations are computed via fast matrix addition across 15k+ rows.
-* **Defensive Data Auditing:** Resolved implicit string-to-numeric type mismatches in raw data using `pd.to_numeric(errors='coerce')`, ensuring zero pipeline crashes while safeguarding dataset integrity.
-* **Strict Multi-Parametric Consensus:** Implemented decoupled data subsets with `.copy()` to block memory leaks, applying row-wise vector alignment (`.apply(axis=1)`) to evaluate all four chemical filters simultaneously.
+## 📊 Pipeline Architecture & Logic Steps
+
+### 1️⃣ Data Hygiene & Subsetting
+* **Auditing:** Inspected data using `df.shape` (15,166 rows, 34 columns) and `df.columns.tolist()`.
+* **Feature Selection:** Isolated 9 relevant molecular descriptors using `.copy()` to avoid `SettingWithCopyWarning`.
+* **Standardization:** Renamed "Molecule" column to "SMILES" for structural clarity.
+
+### 2️⃣ Type Hardening (Bug Fixing)
+* **The Fix:** Resolved string-to-numeric type mismatches (e.g., text-formatted Molecular Weights causing comparison errors) using `pd.to_numeric(errors='coerce')` to guarantee pipeline resilience.
+
+### 3️⃣ Vectorized Rules Mapping
+* **Chemistry to Math:** Replaced slow loops with fast Pandas vectorization. Translated chemical filters into Boolean maps, converting them via `.astype(int)` to instantly sum up molecular violations.
+* **Labeling:** Applied `.apply(lambda)` to flag compounds as `✅ Pass` or `❌ Fail` based on each rule's specific violation tolerance.
+
+### 4️⃣ Consensus Execution
+* **Multi-Parametric Filter:** Used `.apply(axis=1)` to evaluate all 4 columns concurrently. A compound receives a final `✅ Pass` only if it simultaneously satisfies Lipinski, Ghose, Veber, and the LogP sweet spot.
 
 ## 📈 Screening Results & Insights
 * **Lipinski Pass Rate:** 90.21%
