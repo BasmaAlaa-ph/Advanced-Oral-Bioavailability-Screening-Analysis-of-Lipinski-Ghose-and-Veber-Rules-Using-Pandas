@@ -1,4 +1,4 @@
-# Advanced Oral Bioavailability Screening Analysis of Lipinski, Ghose and Veber Rules Using Pandas
+# Advanced Oral Bioavailability Screening Analysis of Lipinski, Ghose and Veber Rules Using Pandas.
 
 A high-performance cheminformatics tool designed to automate oral bioavailability filtering. This pipeline translates medicinal chemistry rules into highly optimized Python logic, screening a dataset of **15,166 compounds** across 9 molecular descriptors in seconds.
 
