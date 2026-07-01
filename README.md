@@ -1,6 +1,6 @@
-# Advanced Oral Bioavailability Screening Analysis of Lipinski, Ghose and Veber Rules Using Pandas.
+# Advanced Oral Bioavailability Screening and Visual Analysis of Molecular Filters Using Pandas and Matplotlib
 
-A high-performance cheminformatics tool designed to automate oral bioavailability filtering. This pipeline translates medicinal chemistry rules into highly optimized Python logic, screening a dataset of **15,166 compounds** across 9 molecular descriptors in seconds.
+A high-performance cheminformatics tool designed to automate oral bioavailability filtering. This pipeline translates medicinal chemistry rules into highly optimized Python logic, screening and visualizing a dataset of **15,166 compounds** across 9 molecular descriptors in seconds.
 
 ## 🧪 Integrated Filters
 * **Lipinski's Rule of 5:** Benchmarking fundamental membrane permeability.
@@ -25,7 +25,13 @@ A high-performance cheminformatics tool designed to automate oral bioavailabilit
 ### 4️⃣ Consensus Execution
 * **Multi-Parametric Filter:** Used `.apply(axis=1)` to evaluate all 4 columns concurrently. A compound receives a final `✅ Pass` only if it simultaneously satisfies Lipinski, Ghose, Veber, and the LogP sweet spot.
 
+### 5️⃣ Data Visualization
+* **Visualizing the Drop-off:** Leveraged `matplotlib.pyplot` to generate a 2x2 grid of bar charts, dynamically comparing the pass/fail distribution across all individual rules and the final strict consensus.
+
 ## 📈 Screening Results & Insights
+
+![Bioavailability Screening Charts](Bioavailability_Screening_Charts.png)
+
 * **Lipinski Pass Rate:** 90.21%
 * **Veber Pass Rate:** 71.97%
 * **Ghose Pass Rate:** 46.20%
@@ -35,5 +41,8 @@ A high-performance cheminformatics tool designed to automate oral bioavailabilit
 *Takeaway: The steep drop to a 22.48% consensus rate highlights the computational bottleneck in early-stage R&D drug discovery—the molecular "sweet spot" is exceptionally narrow.*
 
 ## 🚀 Repository Contents
-* `*.ipynb`: Interactive Google Colab notebook featuring data exploration, debugging logs, and live outputs.
+* `compounds_descriptors.csv`: The raw input dataset containing the original 15,166 compounds and their features.
+* `bioavailability_screening_results.csv`: The final processed output featuring violation counts, pass/fail labels, and the ultimate consensus judgment.
+* `Bioavailability_Screening_Charts.png`: The exported Matplotlib visualization showing the drug-likeness pass/fail distributions.
+* `*.ipynb`: Interactive Google Colab notebook featuring data exploration, debugging logs, Matplotlib visualization, and live outputs.
 * `*.py`: Production-ready, clean Python script version of the automation logic.
